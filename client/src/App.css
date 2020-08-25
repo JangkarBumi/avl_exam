@@ -1,0 +1,39 @@
+/* Report */
+
+.report-container {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-around;
+  background-color: #1d1e20;
+}
+
+.report-detail {
+  color: white;
+}
+
+.report-detail div{
+  margin-top: 1rem;
+}
+
+.caps {
+  text-transform: uppercase;
+}
+
+.block {
+  display: block;
+}
+
+.number{
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.grey{
+  color:grey;
+}
+
+.bold{
+  font-weight: bold;
+}
