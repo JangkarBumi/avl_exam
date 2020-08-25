@@ -4,7 +4,36 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+const nodemailer = require('nodemailer');
+
 app.use(express.json());
+require('dotenv').config();
+
+
+app.post('/send', (req, res) => {
+  let mailTransporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.user,
+      pass: process.env.pass,
+    },
+  });
+
+  const {subject,content} = req.body
+
+  let mailDetails = {
+    to: 'hr@avancevl.com',
+    subject: subject,
+    text: content,
+  };
+
+  try {
+    mailTransporter.sendMail(mailDetails);
+    res.send('Email sent!');
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 
 if (process.env.NODE_ENV === 'production') {
