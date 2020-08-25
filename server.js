@@ -22,7 +22,6 @@ app.post('/send', (req, res) => {
   const {subject,content} = req.body
 
   let mailDetails = {
-    from: 'xyz@gmail.com',
     to: 'zehairawan@gmail.com',
     subject: subject,
     text: content,

@@ -11,7 +11,7 @@ function App() {
       <CssBaseline></CssBaseline>
       <Switch>
         <Route exact path="/" component={Homepage}></Route>
-        <Route path="/contact" component={Contact}></Route>
+        <Route path="/contact" component={Contact} name={'Jen'}></Route>
         {/* <Route path="/problem/:problemId" component={Problem}></Route>  */}
       </Switch>
     </Router>

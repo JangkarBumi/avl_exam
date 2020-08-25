@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import Navbar from './Navbar'
+import Navbar from './Navbar';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -31,34 +31,53 @@ const Contact = () => {
     }
   };
 
+  let name = ' Jen';
+
   return (
     <div>
       <Navbar></Navbar>
-      <form onSubmit={onSubmit}>
-        <div>
-          <p>Topic</p>
-          <input
-            type="text"
-            placeholder="Subject"
-            name="subject"
-            value={subject}
-            onChange={onChange}
-            required
-          />
-        </div>
-        <div>
-          <p>Content</p>
-          <input
-            type="text"
-            placeholder="Content"
-            name="content"
-            value={content}
-            onChange={onChange}
-            required
-          />
-        </div>
-        <input type="submit" value="Send" />
-      </form>
+      <div className="contact-container">
+        <form className="contact-form" onSubmit={onSubmit}>
+          <h1 className="contact-title">
+            <span>Hello</span>
+            {name}
+          </h1>
+          <h3 className="contact-subtitle">Feel free to ask us anything!</h3>
+          <div>
+            <div className="length-limit">
+              <span>Topic</span>
+              <span>{subject.length}/30</span>
+            </div>
+
+            <input
+              type="text"
+              placeholder="Hello"
+              name="subject"
+              value={subject}
+              onChange={onChange}
+              maxLength="30"
+              required
+            />
+          </div>
+          <div>
+            <div className="length-limit">
+              <span>Content</span>
+              <span>{content.length}/300</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Blah blah blah."
+              name="content"
+              value={content}
+              onChange={onChange}
+              required
+              className="content-area"
+              maxLength="300"
+            />
+          </div>
+          <input className="submit-button" type="submit" value="Send" />
+        </form>
+      </div>
     </div>
   );
 };
