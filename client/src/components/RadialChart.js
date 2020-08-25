@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-const DEFAULT_COLOR = '#040404';
+const DEFAULT_COLOR = 'red';
 
 class RadialChart extends Component {
   state = {};
@@ -9,7 +9,7 @@ class RadialChart extends Component {
     // For initial animation
     setTimeout(() => {
       this.setState({ setStrokeLength: true });
-    });
+    },1000);
   }
   render() {
     const { setStrokeLength } = this.state;
@@ -20,6 +20,7 @@ class RadialChart extends Component {
       strokeWidth,
       dimension,
       color,
+
     } = this.props;
 
     const circleRadius = Math.min(radius, 85);
@@ -34,7 +35,7 @@ class RadialChart extends Component {
         <svg viewBox="0 0 180 180" width={dimension} height={dimension}>
           <circle
             className="radial-chart-total"
-            stroke={color}
+            stroke={'grey'}
             strokeWidth={strokeWidth}
             fill="none"
             cx="90"
@@ -50,37 +51,33 @@ class RadialChart extends Component {
             fill="none"
             cx="90"
             cy="90"
+            transform ="rotate(-90, 90,90)"
             r={circleRadius}
+
           />
           <text
             x="50%"
             y="40%"
-           textAnchor="middle"
-            stroke="#fff"
-            strokeWidth="2px"
+            textAnchor="middle"
             dy=".3em"
+            fill="white"
+            className="caps"
           >
             Accuracy
-          </text>{' '}
-          <br></br>
+          </text>
+
           <text
             x="50%"
             y="60%"
             textAnchor="middle"
-            stroke="#fff"
-            strokeWidth="2px"
+            fill="white"
             dy=".3em"
+            fontSize="30"
+            className="bold"
           >
             {progress}
           </text>
-          <text
-            x="60%"
-            y="60%"
-            textAnchor="middle"
-            stroke="#fff"
-            strokeWidth="2px"
-            dy=".3em"
-          >
+          <text x="65%" y="60%" textAnchor="middle" fill="grey" dy=".3em" className="bold" fontSize="15">
             %
           </text>
         </svg>

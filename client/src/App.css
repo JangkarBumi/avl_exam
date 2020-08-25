@@ -12,7 +12,7 @@
   color: white;
 }
 
-.report-detail div{
+.report-detail div {
   margin-top: 1rem;
 }
 
@@ -24,34 +24,43 @@
   display: block;
 }
 
-.number{
+.number {
   font-size: 1.5rem;
   font-weight: bold;
   margin-right: 0.5rem;
 }
 
-.homepage-container{
+.homepage-container {
   display: flex;
   flex-direction: column;
 }
 
-.grey{
-  color:grey;
+.grey {
+  color: grey;
 }
 
-.bold{
+.bold {
   font-weight: bold;
 }
 
 @media only screen and (min-width: 640px) {
-.homepage-container{
-  flex-direction: row;
-  height: 100vh;
+  .homepage-container {
+    flex-direction: row;
+    height: 100vh;
+  }
+  .report-container {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-right: 3rem;
+    padding-left: 3rem;
+  }
 }
-.report-container{
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-right: 3rem;
-  padding-left: 3rem;
+
+.link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-right: 2rem;
 }
-}
+

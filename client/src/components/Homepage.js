@@ -8,8 +8,9 @@ const Homepage = () => {
     <React.Fragment>
       <Navbar></Navbar>
     <div className="homepage-container">
-      <Report></Report>
+      <Report completed={100} correct={75}></Report>
       <Question></Question>
+      
     </div>
     </React.Fragment>
   )
