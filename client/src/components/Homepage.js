@@ -4,7 +4,7 @@ import Question from './Question'
 
 const Homepage = () => {
   return (
-    <div>
+    <div className="homepage-container">
       <Report></Report>
       <Question></Question>
     </div>

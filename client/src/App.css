@@ -30,10 +30,28 @@
   margin-right: 0.5rem;
 }
 
+.homepage-container{
+  display: flex;
+  flex-direction: column;
+}
+
 .grey{
   color:grey;
 }
 
 .bold{
   font-weight: bold;
+}
+
+@media only screen and (min-width: 640px) {
+.homepage-container{
+  flex-direction: row;
+  height: 100vh;
+}
+.report-container{
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-right: 3rem;
+  padding-left: 3rem;
+}
 }
