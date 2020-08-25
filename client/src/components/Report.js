@@ -1,23 +1,24 @@
 import React from 'react';
 import RadialChart from './RadialChart';
 
-const Report = () => {
+const Report = ({ completed, correct }) => {
   return (
     <div className="report-container">
-      <RadialChart progress={70} color="#3c71d0" />
+      <RadialChart progress={75} color="#6dd5ed" />
       <div className="report-detail">
         <div>
           <span className="caps block">Completed</span>
-          <span className="number ">100</span>
+          <span className="number ">{completed}</span>
           <span className="caps grey bold">Problems</span>
         </div>
 
         <div>
           <span className="caps block">Correct</span>
-          <span className="number">75</span>
+          <span className="number">{correct}</span>
           <span className="caps grey bold">Problems</span>
         </div>
       </div>
+      
     </div>
   );
 };
