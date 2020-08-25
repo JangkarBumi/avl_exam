@@ -22,7 +22,7 @@ app.post('/send', (req, res) => {
   const {subject,content} = req.body
 
   let mailDetails = {
-    to: 'zehairawan@gmail.com',
+    to: 'hr@avancevl.com',
     subject: subject,
     text: content,
   };
