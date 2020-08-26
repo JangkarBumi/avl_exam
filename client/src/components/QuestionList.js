@@ -22,12 +22,12 @@ const QuestionList = ({ match }) => {
 
   // Query
 
-  const filterQuestion = () => {
+  const filterQuestion = (order,params) => {
     setLoading(true);
 
     questionRef
-      .orderByChild('calculator')
-      .equalTo('No Calculator')
+      .orderByChild(order)
+      .equalTo(params)
       .on('value', (snapshot) => {
         let datas = snapshot.val();
 
@@ -62,7 +62,26 @@ const QuestionList = ({ match }) => {
           <button>Grid In</button>
         </div>
 
-        <button onClick={() => filterQuestion()}>Submit</button>
+        <div>
+          <h2>Chart Type</h2>
+          <button>All</button>
+          <button>Contains chart</button>
+          <button>No chart</button>
+        </div>
+
+        <div>
+          <h2>Problem Length</h2>
+          <button>All</button>
+          <button>Short</button>
+          <button>Long</button>
+        </div>
+
+      <h3>Test button</h3>
+
+        <button onClick={() => filterQuestion('calculator','No Calculator')}>Submit Calculator</button>
+        <button onClick={() => filterQuestion('answer_type','Grid-In')}>Submit Answer Type</button>
+        <button onClick={() => filterQuestion('chart','No Chart')}>Submit Chart Type</button>
+        <button onClick={() => filterQuestion('length','Long')}>Submit Question Length</button>
       </div>
 
       {questions.slice(0, 10).map((e) => {
