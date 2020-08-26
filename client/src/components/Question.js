@@ -5,28 +5,29 @@ import Navbar from './Navbar';
 import Report from './Report';
 
 const Question = ({ match }) => {
-  const [questionTitle, setQuestionTitle] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const titleRef = firebase.database().ref();
+  const questionRef = firebase.database().ref('problems');
 
-    titleRef.on('value', (snapshot) => {
+  useEffect(() => {
+    questionRef.on('value', (snapshot) => {
       let datas = snapshot.val();
       let newState = [];
       for (let data in datas) {
         newState.push(datas[data]);
       }
-      setQuestionTitle(newState);
+      setQuestions(newState);
       setLoading(false);
     });
   }, []);
+
 
   let problemId = 'problem1';
 
   if (match) problemId = match.params.problemId;
 
-  const dmg = questionTitle.filter((e) => e.question_id === problemId);
+  const dmg = questions.filter((e) => e.question_id === problemId);
 
   if (loading) return <div>Loading...</div>;
 

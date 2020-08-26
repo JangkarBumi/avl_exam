@@ -24,7 +24,7 @@ const QuestionList = ({ match }) => {
 
   const filterQuestion = async() => {
     setLoading(true);
-    const filterQuery = await firebase.database().ref('problems').where('calculator', '==', 'No Calculator').get();
+    const filterQuery = await questionRef.where('calculator', '==', 'No Calculator').get();
 
 
     console.log(filterQuery);

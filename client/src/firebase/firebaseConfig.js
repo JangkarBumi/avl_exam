@@ -1,5 +1,6 @@
 
 import firebase from 'firebase'
+import 'firebase/';
 require('dotenv').config();
 
 var firebaseConfig = {
