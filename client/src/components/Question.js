@@ -12,7 +12,6 @@ const Question = ({ match }) => {
     const titleRef = firebase.database().ref();
 
     titleRef.on('value', (snapshot) => {
-      // console.log(snapshot.val());
       let datas = snapshot.val();
       let newState = [];
       for (let data in datas) {

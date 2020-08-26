@@ -3,30 +3,56 @@ import React, { useEffect, useState } from 'react';
 import firebase from '../firebase/firebaseConfig';
 
 const QuestionList = ({ match }) => {
-  const [questionTitle, setQuestionTitle] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const titleRef = firebase.database().ref();
+  const questionRef = firebase.database().ref('problems');
 
-    titleRef.on('value', (snapshot) => {
-      // console.log(snapshot.val());
+  useEffect(() => {
+    questionRef.on('value', (snapshot) => {
       let datas = snapshot.val();
       let newState = [];
       for (let data in datas) {
         newState.push(datas[data]);
       }
-      setQuestionTitle(newState);
+      setQuestions(newState);
       setLoading(false);
     });
   }, []);
+
+  // Query
+
+  const filterQuestion = async() => {
+    setLoading(true);
+    const filterQuery = await firebase.database().ref('problems').where('calculator', '==', 'No Calculator').get();
+
+
+    console.log(filterQuery);
+    setLoading(false)
+  };
 
   if (loading) return <div>Loading...</div>;
 
   return (
     <div>
-      {questionTitle.slice(0,10).map((e) => {
-        return <div>{e.question_title}</div>;
+      <div>
+        <h1>More Filters</h1>
+
+        <div>
+          <button>All</button>
+          <button>Calculator</button>
+          <button>No Calculator</button>
+        </div>
+        <button onClick={() => filterQuestion()}>Submit</button>
+      </div>
+
+      {questions.slice(0, 10).map((e) => {
+        return (
+          <div key={e.question_id}>
+            <div>{e.question_title}</div>
+            <div>{e.calculator}</div>
+          </div>
+        );
       })}
 
       <Button variant="contained" color="primary">
