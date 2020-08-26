@@ -20,9 +20,14 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = () => {
   const classes = useStyles();
 
+  const pickNumber = Math.floor((Math.random() * 1600) +1)
+
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{background:'#1d1e20',borderBottom:'2px solid grey'}}>
+      <AppBar
+        position="static"
+        style={{ background: '#1d1e20', borderBottom: '2px solid grey' }}
+      >
         <Toolbar>
           <IconButton
             edge="start"
@@ -33,8 +38,14 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
 
-          <Link className="link" to="/">Home</Link>
-          <Link className="link" to="/contact">Contact Us</Link>
+          <Link className="link" to="/">
+            Home
+          </Link>
+          <Link className="link" to="/contact">
+            Contact Us
+          </Link>
+
+          <Link className="link" to={`/problem/problem${pickNumber}`}>Random Quiz</Link>
         </Toolbar>
       </AppBar>
     </div>
