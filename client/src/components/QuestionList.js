@@ -22,13 +22,23 @@ const QuestionList = ({ match }) => {
 
   // Query
 
-  const filterQuestion = async() => {
+  const filterQuestion = () => {
     setLoading(true);
-    const filterQuery = await questionRef.where('calculator', '==', 'No Calculator').get();
 
+    questionRef
+      .orderByChild('calculator')
+      .equalTo('No Calculator')
+      .on('value', (snapshot) => {
+        let datas = snapshot.val();
 
-    console.log(filterQuery);
-    setLoading(false)
+        let newState = [];
+        for (let data in datas) {
+          newState.push(datas[data]);
+        }
+        console.log(newState.length);
+      });
+
+    setLoading(false);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -39,10 +49,19 @@ const QuestionList = ({ match }) => {
         <h1>More Filters</h1>
 
         <div>
+          <h2>Calculator</h2>
           <button>All</button>
           <button>Calculator</button>
           <button>No Calculator</button>
         </div>
+
+        <div>
+          <h2>Answer Type</h2>
+          <button>All</button>
+          <button>Multiple Choice</button>
+          <button>Grid In</button>
+        </div>
+
         <button onClick={() => filterQuestion()}>Submit</button>
       </div>
 
