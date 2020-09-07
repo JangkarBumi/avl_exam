@@ -1,45 +1,44 @@
 import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import firebase from '../firebase/firebaseConfig';
+import {db} from '../firebase/firebaseConfig';
 
 const QuestionList = ({ match }) => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const questionRef = firebase.database().ref('problems');
-
   useEffect(() => {
-    questionRef.on('value', (snapshot) => {
-      let datas = snapshot.val();
-      let newState = [];
-      for (let data in datas) {
-        newState.push(datas[data]);
-      }
-      setQuestions(newState);
-      setLoading(false);
-    });
+    function getData() {
+      db.collection('problems')
+        .get()
+        .then((querySnapshot) => {
+          const data = querySnapshot.docs.map((doc) => doc.data());
+      setQuestions(data)
+      setLoading(false)
+        });
+    }
+    getData();
   }, []);
 
   // Query
 
-  const filterQuestion = (order,params) => {
-    setLoading(true);
+  // const filterQuestion = (order, params) => {
+  //   setLoading(true);
 
-    questionRef
-      .orderByChild(order)
-      .equalTo(params)
-      .on('value', (snapshot) => {
-        let datas = snapshot.val();
+  //   questionRef
+  //     .orderByChild(order)
+  //     .equalTo(params)
+  //     .on('value', (snapshot) => {
+  //       let datas = snapshot.val();
 
-        let newState = [];
-        for (let data in datas) {
-          newState.push(datas[data]);
-        }
-        console.log(newState.length);
-      });
+  //       let newState = [];
+  //       for (let data in datas) {
+  //         newState.push(datas[data]);
+  //       }
+  //       console.log(newState.length);
+  //     });
 
-    setLoading(false);
-  };
+  //   setLoading(false);
+  // };
 
   if (loading) return <div>Loading...</div>;
 
@@ -76,12 +75,20 @@ const QuestionList = ({ match }) => {
           <button>Long</button>
         </div>
 
-      <h3>Test button</h3>
+        <h3>Test button</h3>
 
-        <button onClick={() => filterQuestion('calculator','No Calculator')}>Submit Calculator</button>
-        <button onClick={() => filterQuestion('answer_type','Grid-In')}>Submit Answer Type</button>
-        <button onClick={() => filterQuestion('chart','No Chart')}>Submit Chart Type</button>
-        <button onClick={() => filterQuestion('length','Long')}>Submit Question Length</button>
+        {/* <button onClick={() => filterQuestion('calculator', 'No Calculator')}>
+          Submit Calculator
+        </button>
+        <button onClick={() => filterQuestion('answer_type', 'Grid-In')}>
+          Submit Answer Type
+        </button>
+        <button onClick={() => filterQuestion('chart', 'No Chart')}>
+          Submit Chart Type
+        </button>
+        <button onClick={() => filterQuestion('length', 'Long')}>
+          Submit Question Length
+        </button> */}
       </div>
 
       {questions.slice(0, 10).map((e) => {

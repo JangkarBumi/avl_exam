@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import firebase from '../firebase/firebaseConfig';
+import {db} from '../firebase/firebaseConfig';
 import Navbar from './Navbar';
 import Report from './Report';
 
@@ -8,18 +8,17 @@ const Question = ({ match }) => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const questionRef = firebase.database().ref('problems');
-
   useEffect(() => {
-    questionRef.on('value', (snapshot) => {
-      let datas = snapshot.val();
-      let newState = [];
-      for (let data in datas) {
-        newState.push(datas[data]);
-      }
-      setQuestions(newState);
-      setLoading(false);
-    });
+    function getData() {
+      db.collection('problems')
+        .get()
+        .then((querySnapshot) => {
+          const data = querySnapshot.docs.map((doc) => doc.data());
+      setQuestions(data)
+      setLoading(false)
+        });
+    }
+    getData();
   }, []);
 
 
