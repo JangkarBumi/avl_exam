@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import {db} from '../firebase/firebaseConfig';
+import { db } from '../firebase/firebaseConfig';
 
 const QuestionList = ({ match }) => {
   const [questions, setQuestions] = useState([]);
@@ -12,8 +12,8 @@ const QuestionList = ({ match }) => {
         .get()
         .then((querySnapshot) => {
           const data = querySnapshot.docs.map((doc) => doc.data());
-      setQuestions(data)
-      setLoading(false)
+          setQuestions(data);
+          setLoading(false);
         });
     }
     getData();
@@ -21,30 +21,34 @@ const QuestionList = ({ match }) => {
 
   // Query
 
-  // const filterQuestion = (order, params) => {
-  //   setLoading(true);
+  const filterQuestion = async (order, params) => {
+    setLoading(true);
 
-  //   questionRef
-  //     .orderByChild(order)
-  //     .equalTo(params)
-  //     .on('value', (snapshot) => {
-  //       let datas = snapshot.val();
+    const problemsRef = db.collection('problems');
 
-  //       let newState = [];
-  //       for (let data in datas) {
-  //         newState.push(datas[data]);
-  //       }
-  //       console.log(newState.length);
-  //     });
+    const snapshot = await problemsRef.where(`${order}`, '==', `${params}`).get();
 
-  //   setLoading(false);
-  // };
+    if (snapshot.empty) {
+      console.log('No matching documents.');
+      return;
+    }
+
+    const data = []
+    snapshot.forEach(doc => {
+       data.push(doc.data())
+    });
+
+
+    setQuestions(data);
+    setLoading(false);
+  };
 
   if (loading) return <div>Loading...</div>;
 
   return (
     <div>
       <div>
+  <h1>There is {questions.length} Question</h1>
         <h1>More Filters</h1>
 
         <div>
@@ -77,7 +81,7 @@ const QuestionList = ({ match }) => {
 
         <h3>Test button</h3>
 
-        {/* <button onClick={() => filterQuestion('calculator', 'No Calculator')}>
+        <button onClick={() => filterQuestion('calculator', 'No Calculator')}>
           Submit Calculator
         </button>
         <button onClick={() => filterQuestion('answer_type', 'Grid-In')}>
@@ -88,7 +92,7 @@ const QuestionList = ({ match }) => {
         </button>
         <button onClick={() => filterQuestion('length', 'Long')}>
           Submit Question Length
-        </button> */}
+        </button>
       </div>
 
       {questions.slice(0, 10).map((e) => {
