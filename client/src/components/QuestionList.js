@@ -33,8 +33,11 @@ const QuestionList = () => {
 
   // Query
 
+  useEffect(() => {
+    filterQuestion();
+  }, [calculatorFilter, answerTypeFilter, chartFilter, lengthFilter]);
+
   const filterQuestion = async () => {
-    setLoading(true);
     let query = db.collection('problems');
 
     if (calculatorFilter.length > 0) {
@@ -53,8 +56,6 @@ const QuestionList = () => {
       query = query.where(lengthFilter[0], '==', lengthFilter[1]);
     }
 
-    // console.log(query);
-
     const snapshot = await query.get();
 
     if (snapshot.empty) {
@@ -68,9 +69,6 @@ const QuestionList = () => {
     });
 
     setQuestions(data);
-
-    console.log(data.length);
-    setLoading(false);
   };
 
   if (loading) return <div>Loading...</div>;
@@ -83,26 +81,26 @@ const QuestionList = () => {
 
         <div>
           <h2>Calculator</h2>
+
           <button
             onClick={() => {
               setCalculatorFilter('');
-              filterQuestion();
             }}
           >
             All
           </button>
+
           <button
             onClick={() => {
               setCalculatorFilter(['calculator', 'Calculator']);
-              filterQuestion();
             }}
           >
             Calculator
           </button>
+
           <button
             onClick={() => {
               setCalculatorFilter(['calculator', 'No Calculator']);
-              filterQuestion();
             }}
           >
             No Calculator
@@ -114,7 +112,6 @@ const QuestionList = () => {
           <button
             onClick={() => {
               setAnswerTypeFilter('');
-              filterQuestion();
             }}
           >
             All
@@ -122,7 +119,6 @@ const QuestionList = () => {
           <button
             onClick={() => {
               setAnswerTypeFilter(['answer_type', 'Multiple Choice']);
-              filterQuestion();
             }}
           >
             Multiple Choice
@@ -130,7 +126,6 @@ const QuestionList = () => {
           <button
             onClick={() => {
               setAnswerTypeFilter(['answer_type', 'Grid-In']);
-              filterQuestion();
             }}
           >
             Grid In
@@ -139,11 +134,12 @@ const QuestionList = () => {
 
         <div>
           <h2>Chart Type</h2>
-          <button>All</button>
+          <button       onClick={() => {
+              setChartFilter('');
+            }}>All</button>
           <button
             onClick={() => {
               setChartFilter(['chart', 'Chart']);
-              filterQuestion();
             }}
           >
             Contains chart
@@ -151,7 +147,6 @@ const QuestionList = () => {
           <button
             onClick={() => {
               setChartFilter(['chart', 'No Chart']);
-              filterQuestion();
             }}
           >
             No chart
@@ -164,7 +159,6 @@ const QuestionList = () => {
           <button
             onClick={() => {
               setLengthFilter(['length', 'Short']);
-              filterQuestion();
             }}
           >
             Short
@@ -172,7 +166,6 @@ const QuestionList = () => {
           <button
             onClick={() => {
               setLengthFilter(['length', 'Long']);
-              filterQuestion();
             }}
           >
             Long
