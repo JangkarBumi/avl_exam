@@ -1,16 +1,22 @@
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+require('dotenv').config();
 
-import firebase from 'firebase'
+// Firebase App (the core Firebase SDK) is always required and must be listed first
+// Add the Firebase products that you want to use
 
-var firebaseConfig = {
-  apiKey: "AIzaSyDmWDjGMZyPU_PWHAsoMMvki7eR9v0zg6w",
-  authDomain: "scorepractice-a6fac.firebaseapp.com",
-  databaseURL: "https://scorepractice-a6fac.firebaseio.com",
-  projectId: "scorepractice-a6fac",
-  storageBucket: "scorepractice-a6fac.appspot.com",
-  messagingSenderId: "531537365442",
-  appId: "1:531537365442:web:43ce123eae383c0ecf6e5b"
+// TODO: Replace the following with your app's Firebase project configuration
+const firebaseConfig = {
+  apiKey: process.env._api,
+  authDomain: process.env.REACT_APP_authDomain,
+  databaseURL: process.env.REACT_APP_databaseURL,
+  projectId: process.env.REACT_APP_projectId,
+  storageBucket: process.env.REACT_APP_storageBucket,
+  messagingSenderId: process.env.REACT_APP_messagingSenderId,
+  appId: process.env.REACT_APP_appId,
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-export default firebase
+export const db = firebase.firestore();

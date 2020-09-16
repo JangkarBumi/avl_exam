@@ -1,33 +1,32 @@
 import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import firebase from '../firebase/firebaseConfig';
+import {db} from '../firebase/firebaseConfig';
 import Navbar from './Navbar';
 import Report from './Report';
 
 const Question = ({ match }) => {
-  const [questionTitle, setQuestionTitle] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const titleRef = firebase.database().ref();
-
-    titleRef.on('value', (snapshot) => {
-      // console.log(snapshot.val());
-      let datas = snapshot.val();
-      let newState = [];
-      for (let data in datas) {
-        newState.push(datas[data]);
-      }
-      setQuestionTitle(newState);
-      setLoading(false);
-    });
+    function getData() {
+      db.collection('problems')
+        .get()
+        .then((querySnapshot) => {
+          const data = querySnapshot.docs.map((doc) => doc.data());
+      setQuestions(data)
+      setLoading(false)
+        });
+    }
+    getData();
   }, []);
+
 
   let problemId = 'problem1';
 
   if (match) problemId = match.params.problemId;
 
-  const dmg = questionTitle.filter((e) => e.question_id === problemId);
+  const dmg = questions.filter((e) => e.question_id === problemId);
 
   if (loading) return <div>Loading...</div>;
 
