@@ -5,6 +5,7 @@ import './App.css';
 import Contact from './components/Contact';
 import Homepage from './components/Homepage';
 import Question from './components/Question';
+import Signup from './components/Signup';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/" component={Homepage}></Route>
         <Route path="/contact" component={Contact} name={'Jen'}></Route>
         <Route path="/problem/:problemId" component={Question}></Route>
+        <Route path="/signup" component={Signup}></Route>
       </Switch>
     </Router>
   );

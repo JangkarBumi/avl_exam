@@ -46,6 +46,8 @@ const Navbar = () => {
           </Link>
 
           <Link className="link" to={`/problem/problem${pickNumber}`}>Random Quiz</Link>
+
+          <Link className="link" to="/signup">Signup</Link>
         </Toolbar>
       </AppBar>
     </div>

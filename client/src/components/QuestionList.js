@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { db } from '../firebase/firebaseConfig';
+import { db } from '../firebase/firestoreConfig';
 
 const QuestionList = () => {
   const [questions, setQuestions] = useState([]);
