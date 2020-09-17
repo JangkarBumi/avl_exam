@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
+import * as firebase from 'firebase'
 import React from 'react';
 import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +21,20 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = () => {
   const classes = useStyles();
 
-  const pickNumber = Math.floor((Math.random() * 1600) +1)
+  const pickNumber = Math.floor(Math.random() * 1600 + 1);
+
+  const handleLogout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(function () {
+        alert('Sign-out successful');
+        // Sign-out successful.
+      })
+      .catch(function (error) {
+        // An error happened.
+      });
+  };
 
   return (
     <div className={classes.root}>
@@ -45,9 +59,17 @@ const Navbar = () => {
             Contact Us
           </Link>
 
-          <Link className="link" to={`/problem/problem${pickNumber}`}>Random Quiz</Link>
+          <Link className="link" to={`/problem/problem${pickNumber}`}>
+            Random Quiz
+          </Link>
 
-          <Link className="link" to="/signup">Signup</Link>
+          <Link className="link" to="/signup">
+            Signup
+          </Link>
+
+          <Link className="link" to="/signup" onClick={handleLogout}>
+            Logout
+          </Link>
         </Toolbar>
       </AppBar>
     </div>

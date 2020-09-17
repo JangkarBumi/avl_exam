@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-export const AuthContext = React.createContext(null)
 
 ReactDOM.render(
   <React.StrictMode>

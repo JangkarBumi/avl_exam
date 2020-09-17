@@ -1,6 +1,7 @@
 import React,{useState,useContext} from 'react'
-import {AuthContext} from '../index'
+import {AuthContext} from '../App'
 import * as firebase from 'firebase'
+import Navbar from './Navbar';
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -8,26 +9,32 @@ const Signup = () => {
   const [error, setErrors] = useState("");
 
   const Auth = useContext(AuthContext);
-  const handleForm = e => {
-    e.preventDefault();
+
+  const handleGoogleLogin = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
     firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(res => {
-        console.log(res)
-        if (res.user) Auth.setLoggedIn(true);
+    .auth()
+    .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      .then(() => {
+        firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(result => {
+          Auth.setLoggedIn(true)
+        })
+        .catch(e => setErrors(e.message))
       })
-      .catch(e => {
-        setErrors(e.message);
-      });
-  };
+
+  }
 
   return (
     <div>
+      <Navbar></Navbar>
       <h1>Signup</h1>
 
         <hr />
-        <button type="button">
+        <button onClick={() => handleGoogleLogin()} className="googleBtn" type="button">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
             alt="logo"
