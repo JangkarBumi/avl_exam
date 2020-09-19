@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import Navbar from './Navbar';
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -35,7 +35,6 @@ const Contact = () => {
 
   return (
     <div>
-      <Navbar></Navbar>
       <div className="contact-container">
         <form className="contact-form" onSubmit={onSubmit}>
           <h1 className="contact-title">

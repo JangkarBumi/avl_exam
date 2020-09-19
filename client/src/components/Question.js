@@ -1,7 +1,6 @@
 import { Button } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import {db} from '../App';
-import Navbar from './Navbar';
 import Report from './Report';
 
 const Question = ({ match }) => {
@@ -32,7 +31,6 @@ const Question = ({ match }) => {
 
   return (
     <React.Fragment>
-      <Navbar></Navbar>
       <div className="homepage-container">
         <Report completed={100} correct={75}></Report>
         <div>

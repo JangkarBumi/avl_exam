@@ -1,7 +1,9 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import RadialChart from './RadialChart';
 
 const Report = ({ completed, correct }) => {
+
+
   return (
     <div className="report-container">
       <RadialChart progress={75} color="#6dd5ed" />
@@ -18,7 +20,7 @@ const Report = ({ completed, correct }) => {
           <span className="caps grey bold">Problems</span>
         </div>
       </div>
-      
+
     </div>
   );
 };

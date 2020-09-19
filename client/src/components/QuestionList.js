@@ -33,10 +33,6 @@ const QuestionList = () => {
 
   // Query
 
-  useEffect(() => {
-    filterQuestion();
-  }, [calculatorFilter, answerTypeFilter, chartFilter, lengthFilter]);
-
   const filterQuestion = async () => {
     let query = db.collection('problems');
 
@@ -70,6 +66,12 @@ const QuestionList = () => {
 
     setQuestions(data);
   };
+
+
+  useEffect(() => {
+    filterQuestion();
+  }, [calculatorFilter, answerTypeFilter, chartFilter, lengthFilter]);
+
 
   if (loading) return <div>Loading...</div>;
 
