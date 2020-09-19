@@ -73,6 +73,14 @@ const Navbar = () => {
             Signup
           </Link>
 
+          <Link className="link" to="/user">
+            User
+          </Link>
+
+          <Link className="link" to="/signin">
+            Signin
+          </Link>
+
           <Link className="link" to="/signup" onClick={handleLogout}>
             Logout
           </Link>

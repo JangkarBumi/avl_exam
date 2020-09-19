@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React from 'react';
 import RadialChart from './RadialChart';
 
 const Report = ({ completed, correct }) => {
