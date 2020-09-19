@@ -27,8 +27,6 @@ const Navbar = () => {
 
   const isLoggedIn = useContext(AuthContext)
 
-  console.log(isLoggedIn);
-
   const handleLogout = () => {
     firebase
       .auth()
