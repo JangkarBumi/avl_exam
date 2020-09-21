@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 
 
-const Contact = () => {
+const Contact = ({name}) => {
+
   const [formData, setFormData] = useState({
     subject: '',
     content: '',
@@ -31,15 +32,14 @@ const Contact = () => {
     }
   };
 
-  let name = ' Jen';
 
   return (
     <div>
       <div className="contact-container">
         <form className="contact-form" onSubmit={onSubmit}>
           <h1 className="contact-title">
-            <span>Hello</span>
-            {name}
+            <span>Hello! </span>
+            {name ? name : null }
           </h1>
           <h3 className="contact-subtitle">Feel free to ask us anything!</h3>
           <div>

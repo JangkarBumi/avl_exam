@@ -3,10 +3,10 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import MenuIcon from '@material-ui/icons/Menu';
-import firebase from 'firebase/firebase-auth';
-import React,{useContext} from 'react';
+import firebase from 'firebase';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import {AuthContext} from '../App'
+import { AuthContext } from '../App';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,12 +20,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = (uid) => {
   const classes = useStyles();
 
   const pickNumber = Math.floor(Math.random() * 1600 + 1);
 
-  const isLoggedIn = useContext(AuthContext)
+  const isLoggedIn = useContext(AuthContext);
 
   const handleLogout = () => {
     firebase
@@ -39,6 +39,22 @@ const Navbar = () => {
         // An error happened.
       });
   };
+
+  const authLinks = (
+    <React.Fragment>
+      <Link className="link" to="/signup" onClick={handleLogout}>
+        Logout
+      </Link>
+
+      <Link className="link" to={`/user/${uid.uid}`}>
+        User
+      </Link>
+      
+      <Link className="link" to="/contact">
+        Contact Us
+      </Link>
+    </React.Fragment>
+  );
 
   return (
     <div className={classes.root}>
@@ -59,9 +75,6 @@ const Navbar = () => {
           <Link className="link" to="/">
             Home
           </Link>
-          <Link className="link" to="/contact">
-            Contact Us
-          </Link>
 
           <Link className="link" to={`/problem/problem${pickNumber}`}>
             Random Quiz
@@ -71,16 +84,8 @@ const Navbar = () => {
             Signup
           </Link>
 
-          <Link className="link" to="/user">
-            User
-          </Link>
-
           <Link className="link" to="/signin">
             Signin
-          </Link>
-
-          <Link className="link" to="/signup" onClick={handleLogout}>
-            Logout
           </Link>
         </Toolbar>
       </AppBar>
